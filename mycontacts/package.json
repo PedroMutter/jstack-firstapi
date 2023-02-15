@@ -1,0 +1,11 @@
+{
+  "packageManager": "yarn@1.22.4",
+  "name": "mycontacts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Pedro Mutter <pedro.mutter1@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
