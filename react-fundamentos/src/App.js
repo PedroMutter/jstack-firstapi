@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from './styles/global'
@@ -14,11 +14,17 @@ class App extends React.Component {
   }
 
   handleToggleTheme = () => {
-    this.setState(prevState => ({ theme: prevState.theme === 'dark' ? 'light' : 'dark' }))
+    this.forceUpdate()
+    
+    // this.setState(prevState => ({
+    //   theme: prevState.theme === 'dark' ? 'light' : 'dark'
+    // }))
   }
 
   render() {
     const { theme } = this.state
+
+    console.log('<App /> renderizou')
 
     return (
       <ThemeProvider theme={themes[theme] || themes.dark}>
