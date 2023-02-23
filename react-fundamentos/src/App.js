@@ -15,6 +15,12 @@ class App extends React.Component {
       theme: 'dark',
       oiTudoBem: true
     }
+
+    this.handleToggleTheme =  this.handleToggleTheme.bind(this)
+  }
+
+  handleToggleTheme() {
+    this.setState(prevState => ({ theme: prevState.theme === 'dark' ? 'light' : 'dark' }))
   }
 
   render() {
@@ -24,39 +30,12 @@ class App extends React.Component {
       <ThemeProvider theme={themes[theme] || themes.dark}>
         <GlobalStyle />
         <Layout
-          onToggleTheme={() => {
-            this.setState(prevState => ({ theme: prevState.theme === 'dark' ? 'light' : 'dark' }))
-          }}
+          onToggleTheme={this.handleToggleTheme}
           selectedTheme={theme}
         />
       </ThemeProvider>
     )
   }
 }
-// function App() {
-//   const [theme, setTheme] = useState(localStorage.getItem('theme'))
-
-//   const currentTheme = useMemo(() => {
-//     return themes[theme] || themes.dark
-//   }, [theme])
-
-//   function handleToggleTheme() {
-//     setTheme(prevState => prevState === 'dark' ? 'light' : 'dark')
-//   }
-
-//   useEffect(() => {
-//     localStorage.setItem('theme', theme)
-//   }, [theme])
-
-//   return (
-//     <ThemeProvider theme={currentTheme}>
-//       <GlobalStyle />
-//       <Layout
-//         onToggleTheme={handleToggleTheme}
-//         selectedTheme={theme}
-//       />
-//     </ThemeProvider>
-//   )
-// }
 
 export default App
