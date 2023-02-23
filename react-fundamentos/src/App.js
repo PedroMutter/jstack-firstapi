@@ -6,30 +6,57 @@ import Layout from './components/Layout'
 
 import themes from './styles/themes'
 
-function App() {
-  const [theme, setTheme] = useState(localStorage.getItem('theme'))
+// Class Component
+class App extends React.Component {
+  constructor(props) {
+    super(props)
 
-  const currentTheme = useMemo(() => {
-    return themes[theme] || themes.dark
-  }, [theme])
-
-  function handleToggleTheme() {
-    setTheme(prevState => prevState === 'dark' ? 'light' : 'dark')
+    this.state = {
+      theme: 'dark',
+      oiTudoBem: true
+    }
   }
 
-  useEffect(() => {
-    localStorage.setItem('theme', theme)
-  }, [theme])
+  render() {
+    const { theme } = this.state
 
-  return (
-    <ThemeProvider theme={currentTheme}>
-      <GlobalStyle />
-      <Layout
-        onToggleTheme={handleToggleTheme}
-        selectedTheme={theme}
-      />
-    </ThemeProvider>
-  )
+    return (
+      <ThemeProvider theme={themes[theme] || themes.dark}>
+        <GlobalStyle />
+        <Layout
+          onToggleTheme={() => {
+            this.setState(prevState => ({ theme: prevState.theme === 'dark' ? 'light' : 'dark' }))
+          }}
+          selectedTheme={theme}
+        />
+      </ThemeProvider>
+    )
+  }
 }
+// function App() {
+//   const [theme, setTheme] = useState(localStorage.getItem('theme'))
+
+//   const currentTheme = useMemo(() => {
+//     return themes[theme] || themes.dark
+//   }, [theme])
+
+//   function handleToggleTheme() {
+//     setTheme(prevState => prevState === 'dark' ? 'light' : 'dark')
+//   }
+
+//   useEffect(() => {
+//     localStorage.setItem('theme', theme)
+//   }, [theme])
+
+//   return (
+//     <ThemeProvider theme={currentTheme}>
+//       <GlobalStyle />
+//       <Layout
+//         onToggleTheme={handleToggleTheme}
+//         selectedTheme={theme}
+//       />
+//     </ThemeProvider>
+//   )
+// }
 
 export default App
