@@ -17,11 +17,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('compoenentDidMout executed')
+    console.log('compoenentDidMount executed')
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log({
+    console.log('componentDidUpdate', {
       currentState: this.state,
       prevState,
       prevProps
@@ -30,6 +30,16 @@ class App extends React.Component {
 
   componentDidCatch(error, info) {
     console.log('componentDidCatch', { error, info })
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate', {
+      currentState: this.state,
+      nextState,
+      nextProps
+    })
+
+    return true
   }
 
   render() {
