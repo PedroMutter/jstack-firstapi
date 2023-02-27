@@ -20,12 +20,23 @@ class App extends React.Component {
     console.log('compoenentDidMout executed')
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log({
+      currentState: this.state,
+      prevState,
+      prevProps
+    })
+  }
+
   render() {
     console.log('rendered')
 
     return (
       <ThemeProvider>
-        <button onClick={() => this.setState({ changed: true })}>Change state</button>
+        <button onClick={() => this.setState({ changed: true })}>
+          Change state
+        </button>
+
         <ThemeContext.Consumer>
           {({ theme }) => (
             <StyledThemeProvider theme={themes[theme] || themes.dark}>
