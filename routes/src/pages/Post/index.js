@@ -9,10 +9,19 @@ export default class Post extends React.Component {
     this.queryParams = new URLSearchParams(search)
   }
   
-  render() {
-    console.log(this.queryParams.get('meuQueryParam'))
+  handleNavigate = () => {
+    this.props.history.push('/posts')
+  }
 
-    return <h1>Post page</h1>
+  render() {
+    return (
+      <>
+        <button onClick={this.handleNavigate}>
+          Voltar para a lista de posts
+        </button>
+        <h1>Post page</h1>
+      </>
+    )
   }
 }
 
