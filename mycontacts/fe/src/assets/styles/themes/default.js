@@ -12,5 +12,10 @@ export default {
       200: '#BCBCBC',
       100: '#E6E6E6',
     },
+    danger: {
+      dark: '#F63131',
+      main: '#FC5050',
+      light: '#F97171',
+    },
   },
 };
