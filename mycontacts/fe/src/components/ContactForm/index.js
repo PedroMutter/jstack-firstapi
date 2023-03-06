@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
@@ -17,9 +18,7 @@ export default function ContactForm({ buttonLabel }) {
   const [category, setCategory] = useState('');
   const [errors, setErrors] = useState([]);
 
-  console.log(errors);
-
-  const handleNameChange = (event) => {
+  function handleNameChange(event) {
     setName(event.target.value);
 
     if (!event.target.value) {
@@ -32,9 +31,9 @@ export default function ContactForm({ buttonLabel }) {
         (error) => error.field !== 'name',
       ));
     }
-  };
+  }
 
-  const handleEmailChange = (event) => {
+  function handleEmailChange(event) {
     setEmail(event.target.value);
 
     if (event.target.value && !isEmailValid(event.target.value)) {
@@ -53,9 +52,11 @@ export default function ContactForm({ buttonLabel }) {
         (error) => error.field !== 'email',
       ));
     }
-  };
+  }
 
-  // console.log(errors);
+  function getErrorMessageByFieldName(fieldName) {
+    return errors.find((error) => error.field === fieldName)?.message;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -67,16 +68,18 @@ export default function ContactForm({ buttonLabel }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
+          error={getErrorMessageByFieldName('name')}
           placeholder="Nome"
           value={name}
           onChange={handleNameChange}
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('email')}>
         <Input
+          error={getErrorMessageByFieldName('email')}
           placeholder="E-mail"
           value={email}
           onChange={handleEmailChange}
