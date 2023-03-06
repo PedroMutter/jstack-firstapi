@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
-
 import { useState } from 'react';
+
+import isEmailValid from '../../utils/isEmailValid';
+
 import { Form, ButtonContainer } from './styles';
 
 import FormGroup from '../FormGroup';
@@ -15,13 +17,15 @@ export default function ContactForm({ buttonLabel }) {
   const [category, setCategory] = useState('');
   const [errors, setErrors] = useState([]);
 
+  console.log(errors);
+
   const handleNameChange = (event) => {
     setName(event.target.value);
 
     if (!event.target.value) {
       setErrors((prevState) => [
         ...prevState,
-        { field: 'name', message: 'Nome é obrigatório' },
+        { field: 'name', message: 'Nome é obrigatório.' },
       ]);
     } else {
       setErrors((prevState) => prevState.filter(
@@ -30,7 +34,28 @@ export default function ContactForm({ buttonLabel }) {
     }
   };
 
-  console.log(errors);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+
+    if (event.target.value && !isEmailValid(event.target.value)) {
+      const errorExists = errors.find((error) => error.field === 'email');
+
+      if (errorExists) {
+        return;
+      }
+
+      setErrors((prevState) => [
+        ...prevState,
+        { field: 'email', message: 'E-mail inválido.' },
+      ]);
+    } else {
+      setErrors((prevState) => prevState.filter(
+        (error) => error.field !== 'email',
+      ));
+    }
+  };
+
+  // console.log(errors);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -52,9 +77,9 @@ export default function ContactForm({ buttonLabel }) {
 
       <FormGroup>
         <Input
-          placeholder="E-Mail"
+          placeholder="E-mail"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={handleEmailChange}
         />
       </FormGroup>
 
