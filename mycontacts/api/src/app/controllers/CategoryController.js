@@ -1,23 +1,23 @@
-const CategoriesRepository = require('../repositories/CategoriesRepository')
+const CategoriesRepository = require('../repositories/CategoriesRepository');
 
 class CategoryController {
   async index(req, res) {
-    const categories = await CategoriesRepository.findAll()
+    const categories = await CategoriesRepository.findAll();
 
-    res.json(categories)
+    res.json(categories);
   }
 
   async store(req, res) {
-    const { name } = req.body
+    const { name } = req.body;
 
     if (!name) {
-      return res.status(400).json({ error: 'Name is required' })
+      return res.status(400).json({ error: 'Name is required' });
     }
 
-    const category = await CategoriesRepository.create({ name })
+    const category = await CategoriesRepository.create({ name });
 
-    res.json(category)
+    res.json(category);
   }
 }
 
-module.exports = new CategoryController()
+module.exports = new CategoryController();

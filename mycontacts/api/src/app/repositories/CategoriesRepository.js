@@ -1,9 +1,9 @@
-const db = require('../../database')
+const db = require('../../database');
 
 class CategoriesRepository {
   async findAll() {
-    const rows = await db.query('SELECT * FROM categories ORDER BY name')
-    return rows
+    const rows = await db.query('SELECT * FROM categories ORDER BY name');
+    return rows;
   }
 
   async create({ name }) {
@@ -11,9 +11,9 @@ class CategoriesRepository {
       INSERT INTO categories(name)
       VALUES($1)
       RETURNING *
-    `, [name])
-    return row
+    `, [name]);
+    return row;
   }
 }
 
-module.exports = new CategoriesRepository()
+module.exports = new CategoriesRepository();
