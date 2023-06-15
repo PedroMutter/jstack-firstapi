@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useState, useMemo, useEffect } from 'react';
+import {
+  useState, useMemo, useEffect, useCallback,
+} from 'react';
 
 import {
   Container,
@@ -31,7 +33,7 @@ export default function Home() {
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
   )), [contacts, searchTerm]);
 
-  async function loadContacts() {
+  const loadContacts = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -44,11 +46,11 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [orderBy]);
 
   useEffect(() => {
     loadContacts();
-  }, [orderBy]);
+  }, [loadContacts]);
 
   function handleChangeSearchTerm(event) {
     setSearchTerm(event.target.value);
