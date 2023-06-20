@@ -58,7 +58,7 @@ class ContactController {
     const { name, email, phone, category_id } = req.body;
 
     if (!isValidUUID(id)) {
-      return res.status(400).json({ error: 'Invalid user id' });
+      return res.status(400).json({ error: 'Invalid contact id' });
     }
 
     if (category_id && !isValidUUID(category_id)) {
@@ -93,6 +93,10 @@ class ContactController {
 
   async delete(req, res) {
     const { id } = req.params;
+
+    if (!isValidUUID(id)) {
+      return res.status(400).json({ error: 'Invalid contact id' });
+    }
 
     await ContactsRepository.delete(id);
 
