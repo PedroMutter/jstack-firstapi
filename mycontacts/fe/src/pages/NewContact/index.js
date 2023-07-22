@@ -23,7 +23,7 @@ export default function NewContact() {
     } catch {
       toast({
         type: 'danger',
-        text: 'Ocorreu um erro ao dastrar o contato!',
+        text: 'Ocorreu um erro ao cadastrar o contato!',
       });
     }
   }

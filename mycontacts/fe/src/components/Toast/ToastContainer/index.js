@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import { useState, useEffect } from 'react';
 import { Container } from './styles';
 
@@ -23,13 +24,19 @@ export default function ToastContainer() {
     };
   }, []);
 
+  function handleRemoveMessage(id) {
+    setMessages((prevState) => prevState.filter(
+      (message) => message.id !== id,
+    ));
+  }
+
   return (
     <Container>
       {messages.map((message) => (
         <ToastMessage
           key={message.id}
-          type={message.type}
-          text={message.text}
+          message={message}
+          onRemoveMessage={handleRemoveMessage}
         />
       ))}
     </Container>
